@@ -1,0 +1,21 @@
+{
+  "name": "codecuts",
+  "version": "2.0.0",
+  "authors": [
+    "Lex Stephen <imaginaryfilm@gmail.com>"
+  ],
+  "description": "A seearchable, taggable code repository",
+  "main": "index.php",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

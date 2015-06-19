@@ -1,0 +1,14 @@
+{
+  "name": "codecuts",
+  "version": "2.0.0",
+  "description": "A searchable, taggable code repository",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexis Dicks-Stephen",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^2.5.0"
+  }
+}
