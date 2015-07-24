@@ -12,8 +12,8 @@
       $controller = $_GET['controller'];
       $action     = $_GET['action'];
     } else {
-      $controller = 'pages';
-      $action     = 'home';
+      $controller = 'codes';
+      $action     = 'index';
     }
 
     if ($action != 'codepreview')

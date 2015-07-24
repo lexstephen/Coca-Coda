@@ -5,9 +5,6 @@ function call($controller, $action) {
 
     // create a new instance of the needed controller
     switch($controller) {
-      case 'pages':
-        $controller = new PagesController();
-      break;
       case 'codes':
         // we need the model to query the database later in the controller
         require_once('model/Code.php');
@@ -23,17 +20,16 @@ function call($controller, $action) {
   // we consider those "allowed" values
 
   // we're adding an entry for the new controller and its actions
-  $controllers = array('pages' => ['home', 'error'],
-                       'codes' => ['index', 'show', 'codepreview']);
+  $controllers = array('codes' => ['index', 'show', 'codepreview', 'error']);
   // check that the requested controller and action are both allowed
   // if someone tries to access something else he will be redirected to the error action of the pages controller
   if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
       call($controller, $action);
     } else {
-      call('pages', 'error');
+      call('codes', 'error');
     }
   } else {
-    call('pages', 'error');
+    call('codes', 'error');
   }
 ?>

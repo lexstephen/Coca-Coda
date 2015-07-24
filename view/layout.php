@@ -12,12 +12,7 @@
 <body>
     <div id="container">
         <div class="row">
-            <div class="col-xs-3 cols-sm-3 col-md-3 col-lg-3">
-                <?php require_once 'view/sidebar.php'; ?>
-            </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <?php require_once 'routes.php'; ?>
-            </div>
+            <?php require_once 'routes.php'; ?>
         </div>
     </div>
 
@@ -31,6 +26,12 @@
     ).next().show(); 
 
     $(".sidebarHead").click(
+        function () {
+            $(this).next().toggle();
+        }
+    ).next().hide(); 
+    
+    $(".aCode > .caret").click(
         function () {
             $(this).next().toggle();
         }

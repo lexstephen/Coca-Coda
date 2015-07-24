@@ -12,9 +12,12 @@
       if (!isset($_GET['id']))
         return call('codes', 'error');
 
+      $sidebar = Code::sidebar();
+      $codes = Code::all();
       // we use the given id to get the right code
       $code = Code::find($_GET['id']);
       require_once('view/codes/show.php');
+      
     }
     
     public function codepreview() {
@@ -29,3 +32,4 @@
     }
   }
 ?>
+
