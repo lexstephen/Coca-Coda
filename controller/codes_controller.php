@@ -1,30 +1,37 @@
 <?php
   class CodesController {
+      
     public function index() {
-      $sidebar = Code::sidebar();
+        // build sidebar, available tags, list of all codes
+        // display index
+        $sidebar = Code::sidebar();
         $available_tags = Code::displayAllTags();
-      $codes = Code::all();
-      require_once('view/codes/index.php');
+        $codes = Code::all();
+        require_once('view/codes/index.php');
     }
     
     public function error() {
-      $sidebar = Code::sidebar();
-      $codes = Code::all();
-      require_once('view/codes/error.php');
+        // build sidebar, available tags, list of all codes
+        // display error
+        $sidebar = Code::sidebar();
+        $available_tags = Code::displayAllTags();
+        $codes = Code::all();
+        require_once('view/codes/error.php');
     }
 
     public function show() {
-      // we expect a url of form ?controller=codes&action=show&id=x
-      // without an id we just redirect to the error page as we need the code id to find it in the database
-      if (!isset($_GET['id']))
-        return call('codes', 'error');
-
-      $sidebar = Code::sidebar();
+        // build sidebar, available tags, available code IDs, list of all codes
+        // display error if id= not assigned or not in available code IDs
+        $sidebar = Code::sidebar();
         $available_tags = Code::displayAllTags();
-      $codes = Code::all();
-      // we use the given id to get the right code
-      $code = Code::find($_GET['id']);
-      require_once('view/codes/show.php');
+        $available_codes = Code::displayAllCodes();
+        $codes = Code::all();
+        if((isset($_GET['id'])) && in_array($_GET['id'], $available_codes)) {
+            // use the given id to get the right code
+            $code = Code::find($_GET['id']);
+            require_once('view/codes/show.php');
+        } else
+            return call('codes', 'error');
     }
     
     

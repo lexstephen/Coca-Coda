@@ -7,9 +7,10 @@
      * then the title of the code
     */
     foreach($codes as $code) { ?>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-md-6">
         <div class="thumbnail">
-            <div class="caption">
+              
+            <div class="caption">            
               <?php 
                   $cats = $code['theCode']->displayCats($code['theCode']->id);
                   $catList = '';
@@ -19,10 +20,9 @@
                               . '</a> ';
                   }
                   echo $catList;
-              ?>
-              <h3>
+                  ?>
                   <a href='?controller=codes&action=show&id=<?php echo $code['theCode']->id; ?>'><?php echo $code['theCode']->title; ?> <abbr class="pull-right" title="<?php echo $code['theCode']->description; ?>"><small><span class="caret"></span></small></abbr></a>
-              </h3>
+
             </div>
         </div>
     </div>

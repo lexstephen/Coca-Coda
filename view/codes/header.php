@@ -7,7 +7,7 @@
             <div class="panel-heading">
                  <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch">
-                                                <div class="row">
+                        <div class="row">
                             <div class="col-xs-8">Search</div>
                             <div class="col-xs-4"><span class="caret"></span></div>
                         </div>
@@ -16,18 +16,17 @@
             </div>
             <div id="collapseSearch" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <form action="index.php" role="search" >
-                        
-                        
+                    <form action="index.php" role="search" class=""form-inline">
                         <div class="row">
                             <label class="sr-only" for="q">Search site</label>
-                            <input type="hidden" name="controller" value="codes"> 
-                            <input type="hidden" name="action" value="search">
-                                <div class="col-xs-12">
-                                    <input type="text" class="form-control" name="term" list="tagSearch"> <br>
-                                </div>
-                                <div class="col-xs-12">
-                                    <input type="submit" value="search" class="btn btn-info btn-xs input-xs pull-right"></div>
+                            <div class="col-xs-9">
+                                <input type="hidden" name="controller" value="codes"> 
+                                <input type="hidden" name="action" value="search">
+                                <input type="text" class="form-control" name="term" list="tagSearch">
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <button type="submit" class="btn btn-info">GO</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -76,10 +75,18 @@
             <div class="panel-heading">
                  <h4 class="panel-title">
                         <div class="row">
-                            <div class="col-xs-8"><a href="?controller=codes&action=categories&category=<?php echo $the_category; ?>"><?php echo $the_category; ?></a></div>
+                            <div class="col-xs-8">
+                                <!-- link to the category page displaying all matching codes -->
+                                <a href="?controller=codes&action=categories&category=<?php echo $the_category; ?>">
+                                    <?php echo $the_category; ?>
+                                </a>
+                            </div>
                             <div class="col-xs-4">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $the_category; ?>"><span class="caret"></span>
-                    </a></div>
+                                <!-- link to the toggle list of all matching codes -->
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $the_category; ?>">
+                                    <span class="caret"></span>
+                                </a>
+                            </div>
                         </div>
                  </h4>
             </div>

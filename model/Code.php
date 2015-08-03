@@ -58,6 +58,8 @@ class Code {
         $db = Db::getInstance();
         $searchQry = "SELECT * FROM code 
                 WHERE (code.title LIKE '%". $term ."%')
+                OR (code.author LIKE '%". $term ."%')
+                OR (code.description LIKE '%". $term ."%')
                 OR (code.sourcecode00 LIKE '%". $term ."%')
                 OR (code.sourcecode00title LIKE '%". $term ."%')
                 OR (code.sourcecode01 LIKE '%". $term ."%')
@@ -139,6 +141,20 @@ class Code {
         // the query was prepared, now we replace :id with our actual $id value
         foreach ($req->fetchAll() as $row) {
             array_push($list, $row['name']);
+        }
+        $list = array_unique($list);
+        return $list;
+    }
+    
+    public static function displayAllCodes() {
+        $list = [];
+        $db = Db::getInstance();
+        // we make sure $id is an integer
+        $req = $db->query('SELECT id FROM code
+                    ORDER BY id ASC');
+        // the query was prepared, now we replace :id with our actual $id value
+        foreach ($req->fetchAll() as $row) {
+            array_push($list, $row['id']);
         }
         $list = array_unique($list);
         return $list;

@@ -1,10 +1,7 @@
 <?php require_once 'header.php'; ?>
 
         <div class="page-header">
-            <h3 class="text-center"><?php echo $code->title; ?></h3>
-            <h6 class="text-center">
-                <?php
-                
+            <h3><?php 
                 $cats = $code->displayCats($code->id);
                 $catList = '';
                 foreach ($cats as $cat) {
@@ -14,6 +11,12 @@
                 }
                 echo $catList;
                 
+                echo $code->title; ?></h3>
+            <p><?php echo $code->description; ?>
+            <small>
+                <?php
+                
+                
                 $tags = $code->displayTags($code->id);
                 $tagList = '';
                 foreach ($tags as $tag) {
@@ -22,14 +25,10 @@
                             . '</a>, ';
                 }
                 $tagList = rtrim($tagList, ', ');
-                echo $tagList;
+                echo '<br>tagged under: ' . $tagList;
                 
-                ?>
-            </h6>
-        </div>
-        
-        <div class="col-xs-12">
-            <p><?php echo $code->description; ?></p>
+                ?></p>
+            </small>
         </div>
 
 <?php
