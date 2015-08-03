@@ -2,6 +2,7 @@
   class CodesController {
     public function index() {
       $sidebar = Code::sidebar();
+        $available_tags = Code::displayAllTags();
       $codes = Code::all();
       require_once('view/codes/index.php');
     }
@@ -19,19 +20,38 @@
         return call('codes', 'error');
 
       $sidebar = Code::sidebar();
+        $available_tags = Code::displayAllTags();
       $codes = Code::all();
       // we use the given id to get the right code
       $code = Code::find($_GET['id']);
       require_once('view/codes/show.php');
     }
     
+    
+    public function search() {
+      // we expect a url of form ?controller=codes&action=show&id=x
+      // without an id we just redirect to the error page as we need the code id to find it in the database
+      if (!isset($_GET['term']))
+        return call('codes', 'error');
+
+      $sidebar = Code::sidebar();
+      $available_tags = Code::displayAllTags();
+      $codes = Code::search($_GET['term']);
+      require_once('view/codes/search.php');
+    }
+    
     public function categories() {
         $sidebar = Code::sidebar();
+        $available_tags = Code::displayAllTags();
         $available_categories = Code::displayAllCats();
         if (!isset($_GET['category']))
             return call('codes', 'error');
         if(in_array($_GET['category'], $available_categories)) {
             $codes = Code::categories($_GET['category']);
+            require_once('view/codes/categories.php');
+        }
+        elseif ($_GET['category'] == "all") {
+            $codes = Code::all();
             require_once('view/codes/categories.php');
         }
         else 
@@ -40,10 +60,15 @@
     public function tags() {
         $sidebar = Code::sidebar();
         $available_tags = Code::displayAllTags();
+            $codes = Code::all();
         if (!isset($_GET['tag']))
             return call('codes', 'error');
         if(in_array($_GET['tag'], $available_tags)) {
             $codes = Code::tags($_GET['tag']);
+            require_once('view/codes/tags.php');
+        } 
+        elseif ($_GET['tag'] == "all") {
+            $codes = Code::all();
             require_once('view/codes/tags.php');
         }
         else 

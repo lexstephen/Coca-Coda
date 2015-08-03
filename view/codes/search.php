@@ -1,6 +1,6 @@
 <?php require_once 'header.php'; ?>
 <div class="page-header">
-    <h3 class="text-center">Posts tagged <b><?php echo strtoupper($_GET['tag']); ?></b></h3>
+    <h3 class="text-center">Posts containing <b><?php echo strtoupper($_GET['term']); ?></b></h3>
 </div>
 <div class="row">
 <?php 

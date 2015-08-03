@@ -8,7 +8,7 @@
                 $cats = $code->displayCats($code->id);
                 $catList = '';
                 foreach ($cats as $cat) {
-                    $catList .= '<a class="btn btn-primary" href="?controller=codes&action=categories&category=' . $cat .'">'
+                    $catList .= '<a class="btn btn-info" href="?controller=codes&action=categories&category=' . $cat .'">'
                             . $cat 
                             . '</a> ';
                 }
@@ -35,24 +35,30 @@
 <?php
     $showMeTheCode = $code->showPreview($code->id);
     if ($showMeTheCode[0] == 1) {
+        $colSize = 12;
 ?>
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-12">
             <div class="thumbnail">
                 <div class="caption">
-                    <h6 class="text-center">Preview</h6>
+                    <div class="text-center text-primary"><h4>Preview</h4></div>
                     <iframe id="previewArea" src="index.php?controller=codes&action=codepreview&id=<?php echo $code->id; ?>"></iframe>
                 </div>
             </div>
         </div>
 <?php 
+    } else {
+        // change the size of the code areas if there are fewer files displayed
+        if ($code->files > 1)
+            $colSize = 6;
+        else 
+            $colSize = 12;
     }
-
     for ($x = 0; $x < $code->files; $x++) {
 ?>
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-<?php echo $colSize; ?>">
             <div class="thumbnail">
                 <div class="caption">
-                    <h6 class="text-center"><?php echo $code->sourcecodes[$x]['title']; ?></h6>
+                    <div class="text-center text-primary"><h4><?php echo $code->sourcecodes[$x]['title']; ?></h4></div>
                     <pre class="pre-scrollable"><small><?php echo $code->sourcecodes[$x]['code']; ?></small></pre>
                 </div>
             </div>

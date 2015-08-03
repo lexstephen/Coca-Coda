@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-widh, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="<?php echo $metaAuthor; ?>">
     <meta name="description" content="<?php echo $metaTitle; ?>">
     <meta name="keywords" content="<?php echo $metaKeywords; ?>">
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <div id="container-fluid">
         <div class="row">
             <?php require_once 'routes.php'; ?>
         </div>

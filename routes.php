@@ -20,7 +20,7 @@ function call($controller, $action) {
   // we consider those "allowed" values
 
   // we're adding an entry for the new controller and its actions
-  $controllers = array('codes' => ['index', 'show', 'categories', 'tags', 'codepreview', 'error']);
+  $controllers = array('codes' => ['index', 'show', 'search', 'categories', 'tags', 'codepreview', 'error']);
   // check that the requested controller and action are both allowed
   // if someone tries to access something else he will be redirected to the error action of the pages controller
   if (array_key_exists($controller, $controllers)) {

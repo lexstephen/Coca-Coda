@@ -1,51 +1,64 @@
-<div class="cols-sm-12 col-md-3">
-    <h1 class="text-center">Coda Cola</h1>
+<div class="cols-sm-12 col-md-2">
+    <h1 class="text-center"><a href="index.php">Coda Cola</a></h1>
     
-    <div class="panel-group" id="accordion">
-        
-    <div class="panel panel-default">
+
+    <div class="panel-group" id="accordion">  
+        <div class="panel panel-default">
             <div class="panel-heading">
                  <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch">
                                                 <div class="row">
-                            <div class="col-xs-10">Search</div>
-                            <div class="col-xs-2"><span class="caret"></span></div>
+                            <div class="col-xs-8">Search</div>
+                            <div class="col-xs-4"><span class="caret"></span></div>
                         </div>
                     </a>
                  </h4>
-    </div>
+            </div>
             <div id="collapseSearch" class="panel-collapse collapse">
                 <div class="panel-body">
-        <form action="index.php" role="search" class="form-inline">
-            <label class="sr-only" for="q">Search site</label>
-            <input type="hidden" name="cc" value=""> 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <input type="search" class="form-control input-sm" name="q" list="tagSearch"> 
-                    </div>
-                    <div class="col-xs-4">
-                        <input type="submit" value="search" class="btn btn-sm input-sm">
-                    </div>
+                    <form action="index.php" role="search" >
+                        
+                        
+                        <div class="row">
+                            <label class="sr-only" for="q">Search site</label>
+                            <input type="hidden" name="controller" value="codes"> 
+                            <input type="hidden" name="action" value="search">
+                                <div class="col-xs-12">
+                                    <input type="text" class="form-control" name="term" list="tagSearch"> <br>
+                                </div>
+                                <div class="col-xs-12">
+                                    <input type="submit" value="search" class="btn btn-info btn-xs input-xs pull-right"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-
-        <?php
-        // once they hit search, look for query and build a list of results
-        if (isset($_GET['q'])) {
-            $q = trim($_GET['q']);
-
-            //        $theSearch = new Code();
-            //        $searchList = $theSearch->searchTags($q);
-        }
-
-        //    $theCats = new Code();
-        //    $catList = $theCats->listCats();
-        ?>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <h4 class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-8"><a href="index.php?controller=codes&action=tags&tag=all">Tags</a></div>
+                            <div class="col-xs-4">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTags">
+                                    <span class="caret"></span>
+                                </a>
+                            </div>
+                        </div>
+                 </h4>
+            </div>
+            <div id="collapseTags" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <?php
+                        foreach ($available_tags as $a_tag) {
+                            echo '<a href="?controller=codes&action=tags&tag=' . $a_tag .'">'
+                                    . $a_tag 
+                                    . '</a><br>';
+                        }
+                   ?>
                 </div>
-    </div>
-    </div>
+            </div>
+        </div>
 
     <?php
     // sidebar function is in Code.php, variable is set in codes_controller; returns an array of all codes
@@ -62,38 +75,39 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $the_category; ?>">
                         <div class="row">
-                            <div class="col-xs-10"><?php echo $the_category; ?></div>
-                            <div class="col-xs-2"><span class="caret"></span></div>
+                            <div class="col-xs-8"><a href="?controller=codes&action=categories&category=<?php echo $the_category; ?>"><?php echo $the_category; ?></a></div>
+                            <div class="col-xs-4">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $the_category; ?>"><span class="caret"></span>
+                    </a></div>
                         </div>
-                    </a>
                  </h4>
             </div>
-            
+
             <div id="collapse<?php echo $the_category; ?>" class="panel-collapse collapse">
                 <div class="panel-body">
-<?php
-        // loop through all the codes 
-        foreach ($sidebar as $a_code) {
-            if($a_code['category'] == $the_category) {
-        // display a link to codes that match the category in question 
-?>
+                <?php
+                    // loop through all the codes 
+                    foreach ($sidebar as $a_code) {
+                    if($a_code['category'] == $the_category) {
+                    // display a link to codes that match the category in question 
+                ?>
                     <a href='?controller=codes&action=show&id=<?php echo $a_code['theCode']->id; ?>'><?php echo $a_code['theCode']->title; ?></a><br>
-<?php    
-        } // ends if($a_code['category'] == $the_category)
-?>
-<?php
-        } // ends foreach ($sidebar as $a_code)
-?>
+                <?php    
+                        } // ends if($a_code['category'] == $the_category)
+                ?>
+                <?php
+                        } // ends foreach ($sidebar as $a_code)
+                ?>
                 </div>
             </div>
         </div>
         <?php
     } // ends foreach ($the_categories as $the_category)
 ?>
-        </div>
     </div>
+</div>
 
 <div class="col-sm-12 col-md-9">
+    <br>
     <div class="row">
