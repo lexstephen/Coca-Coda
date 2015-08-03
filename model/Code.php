@@ -32,7 +32,7 @@ class Code {
     public static function all() {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM code');
+        $req = $db->query('SELECT * FROM code ORDER BY id DESC');
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $code) {
             $list[] = new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title']);
@@ -56,10 +56,8 @@ class Code {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT name FROM tag 
-                    INNER JOIN tagmap
-                    ON tagmap.code_id = :id
-                    AND tag.id = tagmap.tag_id
+        $req = $db->prepare('SELECT name FROM tagmap
+                    WHERE code_id = :id
                     ORDER BY name ASC');
         // the query was prepared, now we replace :id with our actual $id value
         $req->execute(array('id' => $id));
@@ -90,12 +88,37 @@ class Code {
         }
         return $list;
     }
+    public static function displayAllCats() {
+        $list = [];
+        $db = Db::getInstance();
+        // we make sure $id is an integer
+        $req = $db->query('SELECT name FROM category 
+                    ORDER BY name ASC');
+        // the query was prepared, now we replace :id with our actual $id value
+        foreach ($req->fetchAll() as $row) {
+            array_push($list, $row['name']);
+        }
+        return $list;
+    }
+
+    public static function displayAllTags() {
+        $list = [];
+        $db = Db::getInstance();
+        // we make sure $id is an integer
+        $req = $db->query('SELECT name FROM tagmap 
+                    ORDER BY name ASC');
+        // the query was prepared, now we replace :id with our actual $id value
+        foreach ($req->fetchAll() as $row) {
+            array_push($list, $row['name']);
+        }
+        return $list;
+    }
 
     public static function sidebar() {
         $list = [];
         $db = Db::getInstance();
 
-        $catReq = $db->query('SELECT * FROM category');
+        $catReq = $db->query('SELECT * FROM category ORDER BY id');
 
         // we create a list of Code objects from the database results
         foreach ($catReq->fetchAll() as $cat) {
@@ -108,7 +131,86 @@ class Code {
 
             // we create a list of Code objects from the database results
             foreach ($req->fetchAll() as $code) {
-                $list[] = ['category' => $cat, 'theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title'])];
+                $list[] = [
+                        'category' => $cat['name'],
+                    'theCode' => new Code($code['code_id'], $code['title'], 
+                        $code['description'], $code['author'], $code['files'], 
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
+                        $code['sourcecode06'], $code['sourcecode06title'])
+                ];
+            }
+        }
+        return $list;
+    }
+    
+    public static function categories($category) {
+        $list = [];
+        $db = Db::getInstance();
+
+//        $checkCatQry = 'SELECT name FROM category';
+//        $checkCat = $db->query($checkCatQry);
+//        foreach ($checkCat->fetchAll() as $chk) {
+//        echo $chk['name'];
+//        }
+        $thisQry = 'SELECT * FROM category WHERE category.name = \'' . $category . '\' ORDER BY id';
+        $catReq = $db->query($thisQry);
+        // we create a list of Code objects from the database results
+        foreach ($catReq->fetchAll() as $cat) {
+            $req = $db->prepare('SELECT * FROM code
+                    INNER JOIN catmap
+                    ON catmap.cat_id = :id
+                    AND code.id = catmap.code_id');
+            // the query was prepared, now we replace :id with our actual $id value
+            $req->execute(array('id' => $cat['id']));
+
+            // we create a list of Code objects from the database results
+            foreach ($req->fetchAll() as $code) {
+                $list[] = [
+                        'category' => $cat['name'],
+                    'theCode' => new Code($code['code_id'], $code['title'], 
+                        $code['description'], $code['author'], $code['files'], 
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
+                        $code['sourcecode06'], $code['sourcecode06title'])
+                ];
+            }
+        }
+        return $list;
+    }
+    public static function tags($tag) {
+        $list = [];
+        $db = Db::getInstance();
+
+//        $checkCatQry = 'SELECT name FROM category';
+//        $checkCat = $db->query($checkCatQry);
+//        foreach ($checkCat->fetchAll() as $chk) {
+//        echo $chk['name'];
+//        }
+        $thisQry = 'SELECT * FROM tagmap WHERE name = \'' . $tag . '\' ORDER BY id';
+        $tagReq = $db->query($thisQry);
+        // we create a list of Code objects from the database results
+        foreach ($tagReq->fetchAll() as $tg) {
+            $req = $db->prepare('SELECT * FROM code
+                    INNER JOIN tagmap
+                    ON tagmap.id = :id
+                    AND code.id = tagmap.code_id');
+            // the query was prepared, now we replace :id with our actual $id value
+            $req->execute(array('id' => $tg['id']));
+
+            // we create a list of Code objects from the database results
+            foreach ($req->fetchAll() as $code) {
+                $list[] = [
+                    'tag' => $tg['name'],
+                    'theCode' => new Code($code['code_id'], $code['title'], 
+                        $code['description'], $code['author'], $code['files'], 
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
+                        $code['sourcecode06'], $code['sourcecode06title'])
+                ];
             }
         }
         return $list;
