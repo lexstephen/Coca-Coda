@@ -4,7 +4,7 @@
     public function index() {
         // build sidebar, available tags, list of all codes
         // display index
-        $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
         $available_tags = Code::displayAllTags();
         $codes = Code::all();
         require_once('view/codes/index.php');
@@ -13,7 +13,7 @@
     public function error() {
         // build sidebar, available tags, list of all codes
         // display error
-        $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
         $available_tags = Code::displayAllTags();
         $codes = Code::all();
         require_once('view/codes/error.php');
@@ -22,7 +22,7 @@
     public function show() {
         // build sidebar, available tags, available code IDs, list of all codes
         // display error if id= not assigned or not in available code IDs
-        $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
         $available_tags = Code::displayAllTags();
         $available_codes = Code::displayAllCodes();
         $codes = Code::all();
@@ -41,14 +41,14 @@
       if (!isset($_GET['term']))
         return call('codes', 'error');
 
-      $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
       $available_tags = Code::displayAllTags();
       $codes = Code::search($_GET['term']);
       require_once('view/codes/search.php');
     }
     
     public function categories() {
-        $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
         $available_tags = Code::displayAllTags();
         $available_categories = Code::displayAllCats();
         if (!isset($_GET['category']))
@@ -65,7 +65,7 @@
             return call('codes', 'error');
     }
     public function tags() {
-        $sidebar = Code::sidebar();
+        $sidebar = Application::sidebar();
         $available_tags = Code::displayAllTags();
             $codes = Code::all();
         if (!isset($_GET['tag']))

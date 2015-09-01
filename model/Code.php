@@ -11,9 +11,12 @@ class Code {
     public $sourcecode04, $sourcecode04title;
     public $sourcecode05, $sourcecode05title;
     public $sourcecode06, $sourcecode06title;
+    public $sourcecode07, $sourcecode07title;
+    public $sourcecode08, $sourcecode08title;
+    public $sourcecode09, $sourcecode09title;
     public $sourcecodes;
     
-    public function __construct($id, $title, $description, $author, $files, $sourcecode00, $sourcecode00title, $sourcecode01, $sourcecode01title, $sourcecode02, $sourcecode02title, $sourcecode03, $sourcecode03title, $sourcecode04, $sourcecode04title, $sourcecode05, $sourcecode05title, $sourcecode06, $sourcecode06title) {
+    public function __construct($id, $title, $description, $author, $files, $sourcecode00, $sourcecode00title, $sourcecode01, $sourcecode01title, $sourcecode02, $sourcecode02title, $sourcecode03, $sourcecode03title, $sourcecode04, $sourcecode04title, $sourcecode05, $sourcecode05title, $sourcecode06, $sourcecode06title, $sourcecode07, $sourcecode07title, $sourcecode08, $sourcecode08title, $sourcecode09, $sourcecode09title) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -26,7 +29,11 @@ class Code {
             ['code' => $sourcecode03, 'title' => $sourcecode03title],
             ['code' => $sourcecode04, 'title' => $sourcecode04title],
             ['code' => $sourcecode05, 'title' => $sourcecode05title],
-            ['code' => $sourcecode06, 'title' => $sourcecode06title]];
+            ['code' => $sourcecode06, 'title' => $sourcecode06title],
+            ['code' => $sourcecode07, 'title' => $sourcecode07title],
+            ['code' => $sourcecode08, 'title' => $sourcecode08title],
+            ['code' => $sourcecode09, 'title' => $sourcecode09title]
+        ];
     }
 
     public static function all() {
@@ -35,7 +42,12 @@ class Code {
         $req = $db->query('SELECT * FROM code ORDER BY id DESC');
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $code) {
-            $list[] = ['theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title'])];
+            $list[] = ['theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], 
+                    $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
+                    $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
+                    $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
+                    $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
+                    $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title'])];
         }
         return $list;
     }
@@ -49,7 +61,7 @@ class Code {
         $req->execute(array('id' => $id));
         $code = $req->fetch();
 
-        return new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title']);
+        return new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title']);
     }
     
     
@@ -87,8 +99,10 @@ class Code {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT name FROM tagmap
-                    WHERE code_id = :id
+        $req = $db->prepare('SELECT name FROM tag 
+                    INNER JOIN tagmap
+                    ON tagmap.code_id = :id
+                    AND tag.id = tagmap.tag_id
                     ORDER BY name ASC');
         // the query was prepared, now we replace :id with our actual $id value
         $req->execute(array('id' => $id));
@@ -136,7 +150,7 @@ class Code {
         $list = [];
         $db = Db::getInstance();
         // we make sure $id is an integer
-        $req = $db->query('SELECT name FROM tagmap 
+        $req = $db->query('SELECT name FROM tag 
                     ORDER BY name ASC');
         // the query was prepared, now we replace :id with our actual $id value
         foreach ($req->fetchAll() as $row) {
@@ -266,17 +280,16 @@ class Code {
         
         return $list;
         } else {
-            $getTagsQry = 'SELECT * FROM tagmap WHERE name = \'' . $tag . '\' ORDER BY id';
+            $getTagsQry = 'SELECT * FROM tag WHERE name = \'' . $tag . '\' ORDER BY id';
             $tagReq = $db->query($getTagsQry);
         // we create a list of Code objects from the database results
             foreach ($tagReq->fetchAll() as $tg) {
             // the query was prepared, now we replace :id with our actual $id value
                 $getCodesQry = 'SELECT * FROM code' . "
                         INNER JOIN tagmap
-                        ON tagmap.name = '" . $tg['name'] .
+                        ON tagmap.tag_id = '" . $tg['id'] .
                         "' AND code.id = tagmap.code_id";
                 $req = $db->query($getCodesQry);
-                //echo '<br>'.$getCodesQry;
                 $whichKind = 'code_id';
             }
 
@@ -289,7 +302,8 @@ class Code {
                         $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
                         $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
                         $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                        $code['sourcecode06'], $code['sourcecode06title'])
+                        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
+                        $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode07title'])
                 ];
             }
         }
