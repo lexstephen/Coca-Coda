@@ -2,6 +2,17 @@
 
         <div class="page-header">
             <h3><?php 
+                $courses = $definition->displayCourses($definition->id);
+                $courseList = '';
+                foreach ($courses as $course) {
+                    $courseList .= '<a class="btn btn-info course" href="?controller=codes&action=course&course=' . $course .'">'
+                            . $course 
+                            . '</a> ';
+                }
+                echo $courseList;
+                
+                
+                
                 $cats = $definition->displayCats($definition->id);
                 $catList = '';
                 foreach ($cats as $cat) {
@@ -28,6 +39,17 @@
                 echo '<br>tagged under: ' . $tagList;
                 
                 ?></p>
+            <p>
+                added by 
+                <?php $users = $definition->displayUser($definition->id);
+                $userList = '';
+                foreach ($users as $user) {
+                    $userList .= '<a href="?controller=users&action=show&user=' . $user .'">'
+                            . $user 
+                            . '</a> ';
+                }
+                echo $userList; ?>
+            </p>
             </small>
         </div>
 

@@ -1,5 +1,4 @@
 <?php
-
 class Code {
 
     // attributes are public so that we can access them using $code->id directly
@@ -100,6 +99,26 @@ class Code {
         return $list;
     }
 
+    public static function displayUser($id) {
+        $db = Db::getInstance();
+        // we make sure $id is an integer
+        $id = intval($id);
+        $req = $db->prepare('SELECT DISTINCT username FROM users 
+                    INNER JOIN usermap
+                    ON usermap.code_id = :id
+                    ORDER BY username ASC');
+        // the query was prepared, now we replace :id with our actual $id value
+        $req->execute(array('id' => $id));
+        $rows = $req->fetchAll();
+
+        $statement = [];
+        foreach ($rows as $row) {
+            array_push($statement, $row['username']);
+//            var_dump($row);
+        }
+        return $statement;
+    }
+
     public static function displayTags($id) {
         $db = Db::getInstance();
         // we make sure $id is an integer
@@ -120,7 +139,24 @@ class Code {
         }
         return $statement;
     }
-
+    
+    public static function displayCourses($id) {
+        $list = [];
+        $db = Db::getInstance();
+        // we make sure $id is an integer
+        $id = intval($id);
+        $req = $db->prepare('SELECT courses.name FROM courses 
+                    INNER JOIN course_code_definition
+                    ON course_code_definition.code_id = :id
+                    AND course_code_definition.course_id = courses.code
+                    ORDER BY courses.name ASC');
+        // the query was prepared, now we replace :id with our actual $id value
+        $req->execute(array('id' => $id));
+        foreach ($req->fetchAll() as $row) {
+            array_push($list, $row['name']);
+        }
+        return $list;
+    }
     public static function displayCats($id) {
         $list = [];
         $db = Db::getInstance();

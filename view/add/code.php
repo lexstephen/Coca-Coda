@@ -42,7 +42,39 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label>Existing Courses</label>
+                        <select multiple class="form-control" id="addCat" name="courses[]">
+                        <?php
+                            foreach ($available_courses as $a_course) 
+                                echo "<option value=".$a_course[0].">".$a_course[0].' - '.$a_course[1]."</option>";
+                        ?>
+                        </select>
+                        <p class="help-block">CTRL+Click to select more than one</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="addNewCourse">Add new courses?</label>
+                        <div class="form-group">
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio00" value="1"> 1</label>
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio01" value="2"> 2</label>
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio02" value="3"> 3</label>
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio03" value="4"> 4</label>
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio04" value="5"> 5</label>
+                        </div>
+                        <!-- hidden Course inputs -->
+                        <div class="form-group form-inline newCourse00 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse00" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse00" placeholder="Course Name"></div>
+                        <div class="form-group form-inline newCourse01 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse01" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse01" placeholder="Course Name"></div>
+                        <div class="form-group form-inline newCourse02 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse02" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse02" placeholder="Course Name"></div>
+                        <div class="form-group form-inline newCourse03 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse03" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse03" placeholder="Course Name"></div>
+                        <div class="form-group form-inline newCourse04 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse04" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse04" placeholder="Course Name"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label>Existing Categories</label>
                         <select multiple class="form-control" id="addCat" name="categories[]">
@@ -69,9 +101,8 @@
                         <div class="form-group newCategory03 categoryBox"><input type="text" name="newCategory[]" class="form-control" id="addNewCategory03" placeholder="Category Name"></div>
                         <div class="form-group newCategory04 categoryBox"><input type="text" name="newCategory[]" class="form-control" id="addNewCategory04" placeholder="Category Name"></div>
                     </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6">
+                </div>
+                <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <label for="addTags">Existing Tags</label>
                         <select multiple class="form-control" id="addCat" name="tags[]">
@@ -128,7 +159,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode00 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode00 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode00Title">Source Code #1 Title</label>
                         <input type="text" name="sourcecode00title" class="form-control" id="addSourceCode00Title" placeholder="index.php">
@@ -138,7 +169,7 @@
                         <textarea name="sourcecode00" class="form-control" id="addSourceCode01" placeholder="&lt;HTML&gt;..&lt;/HTML&gt;"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode01 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode01 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode01Title">Source Code #2 Title</label>
                         <input type="text" name="sourcecode01title" class="form-control" id="addSourceCode01Title" placeholder="index.php">
@@ -150,7 +181,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode02 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode02 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode02Title">Source Code #3 Title</label>
                         <input type="text" name="sourcecode02title" class="form-control" id="addSourceCode02Title" placeholder="index.php">
@@ -160,7 +191,7 @@
                         <textarea name="sourcecode02" class="form-control" id="addSourceCode01" placeholder="&lt;HTML&gt;..&lt;/HTML&gt;"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode03 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode03 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode03Title">Source Code #4 Title</label>
                         <input type="text" name="sourcecode03title" class="form-control" id="addSourceCode03Title" placeholder="index.php">
@@ -172,7 +203,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode04 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode04 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode04Title">Source Code #5 Title</label>
                         <input type="text" name="sourcecode04title" class="form-control" id="addSourceCode04Title" placeholder="index.php">
@@ -182,7 +213,7 @@
                         <textarea name="sourcecode04" class="form-control" id="addSourceCode04" placeholder="&lt;HTML&gt;..&lt;/HTML&gt;"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode05 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode05 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode05Title">Source Code #6 Title</label>
                         <input type="text" name="sourcecode05title" class="form-control" id="addSourceCode05Title" placeholder="index.php">
@@ -194,7 +225,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode06 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode06 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode06Title">Source Code #7 Title</label>
                         <input type="text" name="sourcecode06title" class="form-control" id="addSourceCode06Title" placeholder="index.php">
@@ -204,7 +235,7 @@
                         <textarea name="sourcecode06" class="form-control" id="addSourceCode06" placeholder="&lt;HTML&gt;..&lt;/HTML&gt;"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode07 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode07 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode07Title">Source Code #8 Title</label>
                         <input type="text" name="sourcecode07title" class="form-control" id="addSourceCode07Title" placeholder="index.php">
@@ -216,7 +247,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode08 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode08 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode08Title">Source Code #9 Title</label>
                         <input type="text" name="sourcecode08title" class="form-control" id="addSourceCode08Title" placeholder="index.php">
@@ -226,7 +257,7 @@
                         <textarea name="sourcecode08" class="form-control" id="addSourceCode08" placeholder="&lt;HTML&gt;..&lt;/HTML&gt;"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-6 sourceCode09 sourceCodeBox">
+                <div class="col-xs-12 col-md-6 sourceCode09 sourceCodeBox">
                     <div class="form-group">
                         <label for="addSourceCode09Title">Source Code #10 Title</label>
                         <input type="text" name="sourcecode09title" class="form-control" id="addSourceCode09Title" placeholder="index.php">

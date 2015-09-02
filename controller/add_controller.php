@@ -9,6 +9,7 @@
     public function code() {
         // build sidebar, available tags, list of all add
         // display index
+        $available_courses = Application::displayAllCourses();
         $available_categories = Application::displayAllCats();
         $available_tags = Application::displayAllTags();
         $sidebar = Application::sidebar();

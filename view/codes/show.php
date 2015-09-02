@@ -2,6 +2,16 @@
 
         <div class="page-header">
             <h3><?php 
+                $courses = $code->displayCourses($code->id);
+                $courseList = '';
+                foreach ($courses as $course) {
+                    $courseList .= '<a class="btn btn-info course" href="?controller=codes&action=course&course=' . $course .'">'
+                            . $course 
+                            . '</a> ';
+                }
+                echo $courseList;
+                
+                
                 $cats = $code->displayCats($code->id);
                 $catList = '';
                 foreach ($cats as $cat) {
@@ -28,6 +38,17 @@
                 echo '<br>tagged under: ' . $tagList;
                 
                 ?></p>
+            <p>
+                added by 
+                <?php $users = $code->displayUser( $code->id);
+                $userList = '';
+                foreach ($users as $user) {
+                    $userList .= '<a href="?controller=users&action=show&user=' . $user .'">'
+                            . $user 
+                            . '</a> ';
+                }
+                echo $userList; ?>
+            </p>
             </small>
         </div>
 

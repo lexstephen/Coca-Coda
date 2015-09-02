@@ -6778,3 +6778,11 @@ iframe {
   max-height: 200px;
   overflow-y: scroll;
 }
+.course {
+  background-color: #308DA9;
+  border-color: #308DA9;
+}
+.code_type {
+  background-color: #255563;
+  border-color: #255563;
+}

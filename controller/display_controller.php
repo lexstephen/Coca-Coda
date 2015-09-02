@@ -1,5 +1,5 @@
 <?php
-    class CodesController {
+    class DisplayController {
 
           //
           // CONTENTS: functions for
@@ -9,17 +9,16 @@
 
         public function categories() {
             $sidebar = Application::sidebar();
-            $used_tags = Application::displayUsedTags();
             $available_categories = Application::displayAllCatNames();
             if (!isset($_GET['category']))
                 return call('codes', 'error');
             if(in_array($_GET['category'], $available_categories)) {
-                $codes = Code::categories($_GET['category']);
-                require_once('view/codes/categories.php');
+                $codes = Display::categories($_GET['category']);
+                require_once('view/display/categories.php');
             }
             elseif ($_GET['category'] == "all") {
-                $codes = Code::all();
-                require_once('view/codes/categories.php');
+                $codes = Display::all();
+                require_once('view/display/categories.php');
             }
             else 
                 return call('codes', 'error');
@@ -41,17 +40,12 @@
         public function error() {
             // build sidebar, available tags, list of all codes
             // display error
-            $sidebar = Application::sidebar();
-            $used_tags = Application::displayUsedTags();
-            $codes = Code::all();
             require_once('view/codes/error.php');
         }
 
         public function index() {
             // build sidebar, available tags, list of all codes
             // display index
-            $sidebar = Application::sidebar();
-            $used_tags = Application::displayUsedTags();
             $codes = Code::all();
             require_once('view/codes/index.php');
         }
@@ -62,8 +56,6 @@
           if (!isset($_GET['term']))
             return call('codes', 'error');
 
-          $sidebar = Application::sidebar();
-          $used_tags = Application::displayUsedTags();
           $codes = Code::search($_GET['term']);
           require_once('view/codes/search.php');
         }
@@ -71,8 +63,6 @@
         public function show() {
             // build sidebar, available tags, available code IDs, list of all codes
             // display error if id= not assigned or not in available code IDs
-            $sidebar = Application::sidebar();
-            $used_tags = Application::displayUsedTags();
             $available_codes = Application::displayAllCodes();
             $codes = Code::all();
             if((isset($_GET['id'])) && in_array($_GET['id'], $available_codes)) {
@@ -84,18 +74,17 @@
         }
 
         public function tags() {
-            $sidebar = Application::sidebar();
             $used_tag_names = Application::displayUsedTagNames();
-            $codes = Code::all();
+            $codes = Display::all();
             if (!isset($_GET['tag']))
                 return call('codes', 'error');
             if(in_array($_GET['tag'], $used_tag_names)) {
-                $codes = Code::tags($_GET['tag']);
-                require_once('view/codes/tags.php');
+                $codes = Display::tags($_GET['tag']);
+                require_once('view/display/tags.php');
             } 
             elseif ($_GET['tag'] == "all") {
-                $codes = Code::all();
-                require_once('view/codes/tags.php');
+                $codes = Display::all();
+                require_once('view/display/tags.php');
             }
             else {
                 return call('codes', 'error');

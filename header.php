@@ -58,7 +58,7 @@
             <div class="panel-heading">
                  <h4 class="panel-title">
                         <div class="row">
-                            <div class="col-xs-8"><a href="index.php?controller=codes&action=tags&tag=all">Tags</a></div>
+                            <div class="col-xs-8"><a href="index.php?controller=display&action=tags&tag=all">Tags</a></div>
                             <div class="col-xs-4">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTags">
                                     <span class="caret"></span>
@@ -70,8 +70,9 @@
             <div id="collapseTags" class="panel-collapse collapse">
                 <div class="panel-body">
                     <?php
+                    $used_tags = Application::displayUsedTags();
                         foreach ($used_tags as $a_tag) {
-                            echo '<a href="?controller=codes&action=tags&tag=' . $a_tag[1] .'">'
+                            echo '<a href="?controller=display&action=tags&tag=' . $a_tag[1] .'">'
                                     . $a_tag[1] 
                                     . '</a><br>';
                         }
@@ -84,6 +85,7 @@
     // sidebar function is in Code.php, variable is set in codes_controller; returns an array of all codes
     //var_dump($sidebar);
    
+            $sidebar = Application::sidebar();
     // build a unique array of categories assigned to codes 
     foreach ($sidebar as $a_code) $the_categories[] = $a_code['category'];   
     // strip duplicates
@@ -98,7 +100,7 @@
                         <div class="row">
                             <div class="col-xs-8">
                                 <!-- link to the category page displaying all matching codes -->
-                                <a href="?controller=codes&action=categories&category=<?php echo $the_category; ?>">
+                                <a href="?controller=display&action=categories&category=<?php echo $the_category; ?>">
                                     <?php echo $the_category; ?>
                                 </a>
                             </div>
@@ -118,6 +120,10 @@
                     // loop through all the codes 
                     foreach ($sidebar as $a_code) {
                     if($a_code['category'] == $the_category) {
+                     $short_code_type = ($a_code['type']=='codes')?'c':'d';
+                      echo ' <a class="btn btn-info btn-xs code_type" href="?controller='.$a_code['type'].'&action=index" title="'.$a_code['type'].'">'
+                                . $short_code_type
+                                . '</a> ';
                         //print_r($a_code);
                     // display a link to codes that match the category in question 
                 ?>
