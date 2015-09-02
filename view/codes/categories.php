@@ -1,6 +1,6 @@
 <?php require_once 'header.php'; ?>
    <div class="page-header">
-        <h3 class="text-center">Posts tagged <b><?php echo strtoupper($_GET['category']); ?></b></h3>
+        <h3 class="text-center">Codes tagged <b><?php echo strtoupper($_GET['category']); ?></b></h3>
     </div>
     <div class="row">
     <?php foreach($codes as $code) { ?>

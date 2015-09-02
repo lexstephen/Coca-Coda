@@ -37,27 +37,6 @@
             <div class="panel-heading">
                  <h4 class="panel-title">
                         <div class="row">
-                            <div class="col-xs-8"><a href="index.php?controller=add&action=index">Add</a></div>
-                            <div class="col-xs-4">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseAdd">
-                                    <span class="caret"></span>
-                                </a>
-                            </div>
-                        </div>
-                 </h4>
-            </div>
-            <div id="collapseAdd" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="?controller=add&action=code">Add a Code</a><br>
-                    <a href="?controller=add&action=definition">Add Definitions </a><br>
-                </div>
-            </div>
-        </div>
-        
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                 <h4 class="panel-title">
-                        <div class="row">
                             <div class="col-xs-8"><a href="index.php?controller=codes&action=tags&tag=all">Tags</a></div>
                             <div class="col-xs-4">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTags">
@@ -70,9 +49,9 @@
             <div id="collapseTags" class="panel-collapse collapse">
                 <div class="panel-body">
                     <?php
-                        foreach ($used_tags as $a_tag) {
-                            echo '<a href="?controller=codes&action=tags&tag=' . $a_tag[1] .'">'
-                                    . $a_tag[1] 
+                        foreach ($available_tags as $a_tag) {
+                            echo '<a href="?controller=codes&action=tags&tag=' . $a_tag .'">'
+                                    . $a_tag 
                                     . '</a><br>';
                         }
                    ?>
@@ -118,10 +97,9 @@
                     // loop through all the codes 
                     foreach ($sidebar as $a_code) {
                     if($a_code['category'] == $the_category) {
-                        //print_r($a_code);
                     // display a link to codes that match the category in question 
                 ?>
-                    <a href='?controller=<?php echo $a_code['type']; ?>&action=show&id=<?php echo $a_code['code_id']; ?>'><?php echo $a_code['title']; ?></a><br>
+                    <a href='?controller=codes&action=show&id=<?php echo $a_code['theCode']->id; ?>'><?php echo $a_code['theCode']->title; ?></a><br>
                 <?php    
                         } // ends if($a_code['category'] == $the_category)
                 ?>
