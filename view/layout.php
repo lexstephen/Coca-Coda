@@ -11,7 +11,7 @@
     <title><?php echo $siteTitle; ?> | <?php echo $metaTitle; ?></title>
     <link rel="stylesheet" href="bower_components/custom_bootstrap/style.css">
     <style type="text/css">
-    .sourceCodeBox, .tagBox, .categoryBox, .courseBox {
+    .sourceCodeBox, .tagBox, .categoryBox, .courseBox, .courseTable {
         display: none;
     }
     </style>
@@ -31,23 +31,31 @@
         $('input[type="radio"]').click(function(){
             
             // show the course boxes
+            if($(this).attr("id")=="courseRadio000"){
+                $(".courseBox").hide();
+                $(".courseTable").hide();
+            }
             if($(this).attr("id")=="courseRadio00"){
                 $(".courseBox").not(".newCourse00").hide();
+                $(".courseTable").show();
                 $(".newCourse00").show();
             }
             if($(this).attr("id")=="courseRadio01"){
                 $(".courseBox").not(".newCourse00").hide();
+                $(".courseTable").show();
                 $(".newCourse00").show();
                 $(".newCourse01").show();
             }
             if($(this).attr("id")=="courseRadio02"){
                 $(".courseBox").not(".newCourse02").hide();
+                $(".courseTable").show();
                 $(".newCourse00").show();
                 $(".newCourse01").show();
                 $(".newCourse02").show();
             }
             if($(this).attr("id")=="courseRadio03"){
                 $(".courseBox").not(".newCourse03").hide();
+                $(".courseTable").show();
                 $(".newCourse00").show();
                 $(".newCourse01").show();
                 $(".newCourse02").show();
@@ -55,6 +63,7 @@
             }
             if($(this).attr("id")=="courseRadio04"){
                 $(".courseBox").not(".newCourse04").hide();
+                $(".courseTable").show();
                 $(".newCourse00").show();
                 $(".newCourse01").show();
                 $(".newCourse02").show();
@@ -62,6 +71,9 @@
                 $(".newCourse04").show();
             }
             // show the category boxes
+            if($(this).attr("id")=="categoryRadio000"){
+                $(".categoryBox").hide();
+            }
             if($(this).attr("id")=="categoryRadio00"){
                 $(".categoryBox").not(".newCategory00").hide();
                 $(".newCategory00").show();
@@ -93,6 +105,9 @@
                 $(".newCategory04").show();
             }
             // show the tag boxes
+            if($(this).attr("id")=="tagRadio000"){
+                $(".tagBox").hide();
+            }
             if($(this).attr("id")=="tagRadio00"){
                 $(".tagBox").not(".newTag00").hide();
                 $(".newTag00").show();

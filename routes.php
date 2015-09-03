@@ -27,6 +27,11 @@ function call($controller, $action) {
         require_once('model/Display.php');
         $controller = new DisplayController();
       break;
+      case 'profile':
+        // we need the model to query the database later in the controller
+        require_once('model/Profile.php');
+        $controller = new ProfileController();
+      break;
     }
 
     // call the method in Controller specified by the action
@@ -39,9 +44,10 @@ function call($controller, $action) {
   // we're adding an entry for the new controller and its actions
   $controllers = array(
       'add'         =>  ['code', 'definition', 'error'], 
-      'codes'       =>  ['categories', 'codepreview', 'error', 'index', 'search', 'show', 'tags'], 
-      'definitions' =>  ['categories', 'error', 'index', 'search', 'show', 'tags'], 
-      'display'     =>  ['categories', 'error', 'index', 'search', 'tags']
+      'codes'       =>  ['categories', 'codepreview', 'error', 'index', 'show', 'tags'], 
+      'definitions' =>  ['categories', 'error', 'index', 'show', 'tags'], 
+      'display'     =>  ['categories', 'error', 'search', 'tags'], 
+      'profile'     =>  ['register', 'login', 'show']
     );
   // check that the requested controller and action are both allowed
   // if someone tries to access something else he will be redirected to the error action of the pages controller
@@ -49,9 +55,9 @@ function call($controller, $action) {
     if (in_array($action, $controllers[$controller])) {
       call($controller, $action);
     } else {
-      call('codes', 'error');
+      call('display', 'error');
     }
   } else {
-    call('codes', 'error');
+    call('display', 'error');
   }
   ?>

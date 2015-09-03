@@ -5,7 +5,7 @@
                 $courses = $definition->displayCourses($definition->id);
                 $courseList = '';
                 foreach ($courses as $course) {
-                    $courseList .= '<a class="btn btn-info course" href="?controller=codes&action=course&course=' . $course .'">'
+                    $courseList .= '<a class="btn btn-info course" href="?controller=display&action=course&course=' . $course .'">'
                             . $course 
                             . '</a> ';
                 }
@@ -16,7 +16,7 @@
                 $cats = $definition->displayCats($definition->id);
                 $catList = '';
                 foreach ($cats as $cat) {
-                    $catList .= '<a class="btn btn-info" href="?controller=definitions&action=categories&category=' . $cat .'">'
+                    $catList .= '<a class="btn btn-info" href="?controller=display&action=categories&category=' . $cat .'">'
                             . $cat 
                             . '</a> ';
                 }
@@ -52,5 +52,19 @@
             </p>
             </small>
         </div>
+<?php
 
-<?php require_once 'footer.php'; ?>
+    if ($definition->sample_code) {
+?>
+        <div class="col-xs-12 col-sm-12">
+            <div class="thumbnail">
+                <div class="caption">
+                    <div class="text-center text-primary"><h4>Example</h4></div>
+                   <pre class="pre-scrollable"><?php echo $definition->sample_code; ?></pre>
+                </div>
+            </div>
+        </div>
+<?php 
+    }
+    
+    require_once 'footer.php'; ?>

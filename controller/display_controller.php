@@ -3,7 +3,7 @@
 
           //
           // CONTENTS: functions for
-          // categories, codepreview, error, 
+          // categories, error, 
           // index, search, show, tags
           // 
 
@@ -11,12 +11,15 @@
             $sidebar = Application::sidebar();
             $available_categories = Application::displayAllCatNames();
             if (!isset($_GET['category']))
-                return call('codes', 'error');
-            if(in_array($_GET['category'], $available_categories)) {
-                $codes = Display::categories($_GET['category']);
+                $category = 'all';
+            else
+                $category = $_GET['category'];
+            
+            if(in_array($category, $available_categories)) {
+                $codes = Display::categories($category);
                 require_once('view/display/categories.php');
             }
-            elseif ($_GET['category'] == "all") {
+            elseif ($category == "all") {
                 $codes = Display::all();
                 require_once('view/display/categories.php');
             }
@@ -24,30 +27,10 @@
                 return call('codes', 'error');
         }
 
-
-        public function codepreview() {
-          // we expect a url of form ?controller=codes&action=codepreview&id=x
-          // without an id we just redirect to the error page as we need the code id to find it in the database
-          if (!isset($_GET['id']))
-            return call('codes', 'error');
-
-          // we use the given id to get the right code
-          $code = Code::find($_GET['id']);
-          require_once('view/codes/codepreview.php');
-        }
-
-
         public function error() {
             // build sidebar, available tags, list of all codes
             // display error
             require_once('view/codes/error.php');
-        }
-
-        public function index() {
-            // build sidebar, available tags, list of all codes
-            // display index
-            $codes = Code::all();
-            require_once('view/codes/index.php');
         }
 
         public function search() {
@@ -56,21 +39,8 @@
           if (!isset($_GET['term']))
             return call('codes', 'error');
 
-          $codes = Code::search($_GET['term']);
-          require_once('view/codes/search.php');
-        }
-
-        public function show() {
-            // build sidebar, available tags, available code IDs, list of all codes
-            // display error if id= not assigned or not in available code IDs
-            $available_codes = Application::displayAllCodes();
-            $codes = Code::all();
-            if((isset($_GET['id'])) && in_array($_GET['id'], $available_codes)) {
-                // use the given id to get the right code
-                $code = Code::find($_GET['id']);
-                require_once('view/codes/show.php');
-            } else
-                return call('codes', 'error');
+          $codes = Display::search($_GET['term']);
+          require_once('view/display/search.php');
         }
 
         public function tags() {

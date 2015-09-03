@@ -1,7 +1,7 @@
 <?php require_once 'header.php'; ?>
    <div class="page-header">
         <h3 class="text-center"><?php 
-            if(strtoupper($_GET['category'])=='ALL')
+            if(strtoupper($category)=='ALL')
                 echo 'Everything';
             else
                 echo 'Everything tagged <b>' .strtoupper($_GET['category']).'</b>' ;
@@ -22,7 +22,7 @@
                     $cats = Display::displayCats($code['id']);
                     $catList = '';
                     foreach ($cats as $cat) {
-                        $catList .= ' <a class="btn btn-info btn-xs" href="?controller='.$code['type'].'&action=categories&category=' . $cat .'">'
+                        $catList .= ' <a class="btn btn-info btn-xs" href="?controller=display&action=categories&category=' . $cat .'">'
                                 . $cat
                                 . '</a> ';
                     }

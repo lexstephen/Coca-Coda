@@ -21,7 +21,7 @@
                   $cats = $definition['theDefinition']->displayCats($definition['theDefinition']->id);
                   $catList = '';
                   foreach ($cats as $cat) {
-                      $catList .= '<a class="btn-info btn-xs" href="?controller=definitions&action=categories&category=' . $cat .'">'
+                      $catList .= '<a class="btn-info btn-xs" href="?controller=display&action=categories&category=' . $cat .'">'
                               . $cat 
                               . '</a> ';
                   }

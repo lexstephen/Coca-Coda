@@ -12,7 +12,7 @@ INSERT INTO `tagmap`(`code_id`,
 'drop table');
 INSERT INTO `tagmap`(`code_id`,
  `name`) VALUES (7,
-'linesize');
+'linesize');
 INSERT INTO `tagmap`(`code_id`,
  `name`) VALUES (7,
 'pagesize');
@@ -110,6 +110,17 @@ INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'switch');
 INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'case');
 INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'break');
 
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'try');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'private');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'public');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'string');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'int');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'float');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'for');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (9,'math');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (4,'try');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (4,'catch');
+INSERT INTO `tagmap`(`code_id`, `name`) VALUES (4,'finally');
 
 SELECT * FROM code 
 WHERE (`title` LIKE '%index%')
@@ -136,3 +147,21 @@ OR (code.sourcecode04 LIKE '%index%')
 OR (code.sourcecode04title LIKE '%index%')
 OR (code.sourcecode05 LIKE '%index%')
 OR (code.sourcecode05title LIKE '%index%')
+
+
+INSERT INTO `cc_test`.`code`    (`id`, `title`, `description`, `author`, `files`, 
+                                  `sourcecode00title`, `sourcecode00`, `sourcecode01title`, `sourcecode01`, `sourcecode02title`, `sourcecode02`, 
+                                  `sourcecode03title`, `sourcecode03`, `sourcecode04title`, `sourcecode04`, `sourcecode05title`, `sourcecode05`, 
+                                  `sourcecode06title`, `sourcecode06`) 
+VALUES                          (NULL, 'Dynamic Loops', 'Using a form to build lists using loops', 'Alexis Dicks-Stephen', '1', 
+                                  'index.php', '[thisiswherecodewouldgo]', '', '', '', '', '', '', '', '', '', '', '', '');
+                                  
+INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`) VALUES (NULL, '5', '6');
+
+INSERT INTO `cc_test`.`tag` (`id`, `name`) VALUES (NULL, 'try');
+
+INSERT INTO `cc_test`.`category` (`id`, `name`, `showPreview`, `showCode`) VALUES (NULL, 'jQuery', '1', '1');
+
+INSERT INTO `tagmap`(`id`, `tag_id`, `code_id`) VALUES (null,378,4);
+
+INSERT INTO `cc_test`.`coursemap` (`id`, `course_id`, `cat_id`) VALUES (NULL, '0', '3097');

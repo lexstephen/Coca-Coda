@@ -14,22 +14,27 @@ foreach($codes as $code) { ?>
     <div class="thumbnail">
       <div class="caption">
         <?php 
-            $cats = $code['theCode']->displayCats($code['theCode']->id);
-            $catList = '';
-            foreach ($cats as $cat) {
-                $catList .= '<a class="btn btn-info btn-xs" href="?controller=codes&action=categories&category=' . $cat .'">'
-                        . $cat 
-                        . '</a> ';
-            }
-            echo $catList;
+                     $short_code_type = ($code['type']=='codes')?'c':'d';
+                      echo ' <a class="btn btn-info btn-xs code_type" href="?controller='.$code['type'].'&action=index" title="See all '.$code['type'].'">'
+                                . $short_code_type
+                                . '</a> ';
+                      
+                    $cats = Display::displayCats($code['id']);
+                    $catList = '';
+                    foreach ($cats as $cat) {
+                        $catList .= ' <a class="btn btn-info btn-xs" href="?controller=display&action=categories&category=' . $cat .'">'
+                                . $cat
+                                . '</a> ';
+                    }
+                    echo $catList;
             
         ?>
       <h3>
-          <a href='?controller=codes&action=show&id=<?php echo $code['theCode']->id; ?>'>
-              <?php echo $code['theCode']->title; ?> <abbr class="pull-right" title="<?php echo $code['theCode']->description; ?>"><small><span class="caret"></span></small></abbr>
+          <a href='?controller=<?php echo $code['type']; ?>&action=show&id=<?php echo $code['id']; ?>'>
+              <?php echo $code['title']; ?> <abbr class="pull-right" title="<?php echo $code['description']; ?>"><small><span class="caret"></span></small></abbr>
           </a>
           <h6><?php 
-            $tags = $code['theCode']->displaytags($code['theCode']->id);
+            $tags = Display::displaytags($code['id']);
             $tagList = '';
             foreach ($tags as $tag) {
                 $tagList .= '<a href="?controller=codes&action=tags&tag=' . $tag .'">'

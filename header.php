@@ -20,7 +20,7 @@
                         <div class="row">
                             <label class="sr-only" for="q">Search site</label>
                             <div class="col-xs-9">
-                                <input type="hidden" name="controller" value="codes"> 
+                                <input type="hidden" name="controller" value="display"> 
                                 <input type="hidden" name="action" value="search">
                                 <input type="text" class="form-control" name="term" list="tagSearch">
                             </div>
@@ -37,7 +37,28 @@
             <div class="panel-heading">
                  <h4 class="panel-title">
                         <div class="row">
-                            <div class="col-xs-8"><a href="index.php?controller=add&action=index">Add</a></div>
+                            <div class="col-xs-8">Browse</div>
+                            <div class="col-xs-4">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseBrowse">
+                                    <span class="caret"></span>
+                                </a>
+                            </div>
+                        </div>
+                 </h4>
+            </div>
+            <div id="collapseBrowse" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="?controller=definitions&action=index">Definitions</a><br>
+                    <a href="?controller=codes&action=index">Codes</a><br>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <h4 class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-8">Add</div>
                             <div class="col-xs-4">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseAdd">
                                     <span class="caret"></span>

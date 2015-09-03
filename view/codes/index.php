@@ -1,4 +1,7 @@
 <?php require_once 'header.php'; ?>
+        <div class="page-header">
+            <h3>All Codes</h3>
+        </div>
 <div class="row">
     <?php 
     /*

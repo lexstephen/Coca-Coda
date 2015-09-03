@@ -177,6 +177,54 @@ class Display {
         return $list;
             
         }
+    
+    public static function search($term) {
+        $list = [];
+        $db = Db::getInstance();
+        
+//SELECT code.id, code.title, code.description, 'codes' FROM code
+//WHERE (code.title LIKE '%er%')
+//                    
+//UNION
+//                    
+//SELECT definition.id, definition.term, definition.definition, 'definitions' FROM definition
+//WHERE (definition.term LIKE '%er%')
+//                
+                
+        $searchQry = "SELECT code.id, code.title, code.description, 'codes' FROM code 
+                WHERE (code.title LIKE '%". $term ."%')
+                OR (code.author LIKE '%". $term ."%')
+                OR (code.description LIKE '%". $term ."%')
+                OR (code.sourcecode00 LIKE '%". $term ."%')
+                OR (code.sourcecode00title LIKE '%". $term ."%')
+                OR (code.sourcecode01 LIKE '%". $term ."%')
+                OR (code.sourcecode01title LIKE '%". $term ."%')
+                OR (code.sourcecode02 LIKE '%". $term ."%')
+                OR (code.sourcecode02title LIKE '%". $term ."%')
+                OR (code.sourcecode03 LIKE '%". $term ."%')
+                OR (code.sourcecode03title LIKE '%". $term ."%')
+                OR (code.sourcecode04 LIKE '%". $term ."%')
+                OR (code.sourcecode04title LIKE '%". $term ."%')
+                OR (code.sourcecode05 LIKE '%". $term ."%')
+                OR (code.sourcecode05title LIKE '%". $term ."%')
+                    UNION
+                    SELECT definition.id, definition.term, definition.definition, 'definitions' FROM definition 
+                WHERE (definition.term LIKE '%". $term ."%')
+                OR (definition.definition LIKE '%". $term ."%')";
+        $req = $db->query($searchQry);
+        // the query was prepared, now we replace :id with our actual $id value
+
+        //var_dump($req->fetchAll());
+        
+        foreach ($req->fetchAll() as $code) {
+            $list[] = [
+                        'type' => isset($code['codes'])?$code['codes']:$code['definitions'], 
+                        'id' => isset($code['id'])?$code['id']:$code['id'], 
+                        'title' => isset($code['title'])?$code['title']:$code['term'], 
+                        'description' => isset($code['description'])?$code['description']:$code['definition']];
+        }
+        return $list;
+    }
 
 }
 

@@ -63,41 +63,6 @@ class Code {
         return new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title']);
     }
     
-    
-    public static function search($term) {
-        $list = [];
-        $db = Db::getInstance();
-        $searchQry = "SELECT * FROM code 
-                WHERE (code.title LIKE '%". $term ."%')
-                OR (code.author LIKE '%". $term ."%')
-                OR (code.description LIKE '%". $term ."%')
-                OR (code.sourcecode00 LIKE '%". $term ."%')
-                OR (code.sourcecode00title LIKE '%". $term ."%')
-                OR (code.sourcecode01 LIKE '%". $term ."%')
-                OR (code.sourcecode01title LIKE '%". $term ."%')
-                OR (code.sourcecode02 LIKE '%". $term ."%')
-                OR (code.sourcecode02title LIKE '%". $term ."%')
-                OR (code.sourcecode03 LIKE '%". $term ."%')
-                OR (code.sourcecode03title LIKE '%". $term ."%')
-                OR (code.sourcecode04 LIKE '%". $term ."%')
-                OR (code.sourcecode04title LIKE '%". $term ."%')
-                OR (code.sourcecode05 LIKE '%". $term ."%')
-                OR (code.sourcecode05title LIKE '%". $term ."%')";
-        $req = $db->query($searchQry);
-        // the query was prepared, now we replace :id with our actual $id value
-
-        //var_dump($req->fetchAll());
-        
-        foreach ($req->fetchAll() as $code) {
-            $list[] = ['theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], 
-                    $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
-                    $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
-                    $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                    $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
-                    $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title'])];
-        }
-        return $list;
-    }
 
     public static function displayUser($id) {
         $db = Db::getInstance();

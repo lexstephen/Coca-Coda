@@ -39,6 +39,15 @@ class Add {
         $codeSourceCode09Title = isset($_POST['sourcecode09title'])?$_POST['sourcecode09title']:null;
         $codeSourceCode09 = isset($_POST['sourcecode09'])?$_POST['sourcecode09']:null;
         
+        // $codeCourses holds an array of any preexisting courses that were selected
+        $codeCourses = isset($_POST['courses'])?$_POST['courses']:null;
+        // $codeNewCourses holds the # of new courses they added
+        $codeNewCourses = isset($_POST['newCourses'])?$_POST['newCourses']:null;
+        // $codeNewCourse holds an array of the new tags they added
+        $codeNewCourseCode = isset($_POST['newCourseCode'])?$_POST['newCourseCode']:null;
+        $codeNewCourseName = isset($_POST['newCourseName'])?$_POST['newCourseName']:null;
+        $codeNewCourseCategories = isset($_POST['newCourseCategories'])?$_POST['newCourseCategories']:null;
+        
         // $codeCategories holds an array of any preexisting categories that were selected
         $codeCategories = isset($_POST['categories'])?$_POST['categories']:null;
         // $codeNewCategories holds the # of new categories they added
@@ -52,6 +61,8 @@ class Add {
         $codeNewTags = isset($_POST['newTags'])?$_POST['newTags']:null;
         // $codeNewTag holds an array of the new tags they added
         $codeNewTag = isset($_POST['newTag'])?$_POST['newTag']:null;
+        
+        
         
         // fire up the database connection
         $db = Db::getInstance();
@@ -79,6 +90,15 @@ class Add {
         // get the ID of the code inserted to use in building category and tag associations
         $codeID = $db->lastInsertId();
 
+        // check if a course was selected and link its id to the code's id
+        if ($codeCourses) {
+            foreach($codeCourses as $codeCourse) {
+                $catReq = $db->query(
+                    "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`) 
+                    VALUES (NULL, '$codeCourse', '$codeID', NULL)"
+                );
+            }
+        }
         // check if a category was selected and link its id to the code's id
         if ($codeCategories) {
             foreach($codeCategories as $codeCategory) {
@@ -97,6 +117,36 @@ class Add {
                 );
             }
         }
+        // check if new courses were added and add them to the database
+        // then link each id to the code's id
+        if ($codeNewCourseCode) {
+            for ($x = 0; $x < $codeNewCourses; $x++) {
+                // add the new course code
+                    $addThatCourse = $db->query(
+                        "INSERT INTO `cc_test`.`courses` 
+                        (`code`, `name`) 
+                        VALUES ('$codeNewCourseCode[$x]', '$codeNewCourseName[$x]')"
+                    );
+                    // get the ID of the course inserted 
+                    // then link each course code to the code's id
+                    $linkThatCourse = $db->query(
+                        "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`) 
+                        VALUES (NULL, '$codeNewCourseCode[$x]', '$codeID', NULL)"
+                    );
+                    print_r($codeNewCategories[$x]);
+                    $linkThatCourseToACategory = $db->query(
+                        "INSERT INTO `cc_test`.`coursemap` (`id`, `course_id`, `cat_id`) 
+                        VALUES (NULL, '$codeNewCourseCode[$x]', '$codeNewCourseCategories[$x]')"
+                    );
+                    // get the ID of the category inserted to use in building category and code associations
+                    $catID = $db->lastInsertId();
+                    $linkThatCategoryToTheCode = $db->query(
+                        "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`) 
+                        VALUES (NULL, '$codeID', '$catID')"
+                    );
+            }
+        }
+        
         // check if new categories were added and add them to the database
         // then link each id to the code's id
         if ($codeNewCategory) {

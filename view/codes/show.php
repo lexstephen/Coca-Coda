@@ -54,6 +54,7 @@
 
 <?php
     $showMeTheCode = $code->showPreview($code->id);
+    if ($showMeTheCode) {
     if ($showMeTheCode[0] == 1) {
         $colSize = 12;
 ?>
@@ -72,6 +73,7 @@
             $colSize = 6;
         else 
             $colSize = 12;
+    }
     }
     for ($x = 0; $x < $code->files; $x++) {
 ?>

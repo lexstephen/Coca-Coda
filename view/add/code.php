@@ -42,10 +42,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12">
                     <div class="form-group">
                         <label>Existing Courses</label>
-                        <select multiple class="form-control" id="addCat" name="courses[]">
+                        <select multiple class="form-control" id="addCourse" name="courses[]">
                         <?php
                             foreach ($available_courses as $a_course) 
                                 echo "<option value=".$a_course[0].">".$a_course[0].' - '.$a_course[1]."</option>";
@@ -54,22 +54,87 @@
                         <p class="help-block">CTRL+Click to select more than one</p>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12">
                     <div class="form-group">
                         <label for="addNewCourse">Add new courses?</label>
+
                         <div class="form-group">
+                            <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio000" value="0" checked> 0</label>
                             <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio00" value="1"> 1</label>
                             <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio01" value="2"> 2</label>
                             <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio02" value="3"> 3</label>
                             <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio03" value="4"> 4</label>
                             <label class="radio-inline"><input type="radio" name="newCourses" id="courseRadio04" value="5"> 5</label>
                         </div>
+                        
                         <!-- hidden Course inputs -->
-                        <div class="form-group form-inline newCourse00 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse00" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse00" placeholder="Course Name"></div>
-                        <div class="form-group form-inline newCourse01 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse01" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse01" placeholder="Course Name"></div>
-                        <div class="form-group form-inline newCourse02 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse02" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse02" placeholder="Course Name"></div>
-                        <div class="form-group form-inline newCourse03 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse03" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse03" placeholder="Course Name"></div>
-                        <div class="form-group form-inline newCourse04 courseBox"><input type="text" name="newCourse[]" class="form-control" id="addNewCourse04" placeholder="Course Code"> <input type="text" name="newCourse[]" class="form-control" id="addNewCourse04" placeholder="Course Name"></div>
+                        <div class="courseTable">
+                        <table class="table table-condensed">
+                            <caption>
+                                <span class="help-block pull-right">CTRL+Click to assign course to more than one category</span>
+                            </caption>
+                            <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Categories</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="newCourse00 courseBox">
+                                <td><input type="text" name="newCourseCode[]" class="form-control" id="addNewCourse00" placeholder="Course Code"> </td>
+                                <td><input type="text" name="newCourseName[]" class="form-control" id="addNewCourse00" placeholder="Course Name"> </td>
+                                <td><select multiple class="form-control" id="addCat" name="newCourseCategories[]">
+                            <?php
+                                foreach ($available_categories as $a_category) 
+                                    echo "<option value=".$a_category[0].">".$a_category[1]."</option>";
+                            ?>
+                                    </select></td>
+                            </tr>
+                            <tr class="newCourse01 courseBox">
+                                <td><input type="text" name="newCourseCode[]" class="form-control" id="addNewCourse01" placeholder="Course Code"> </td>
+                                <td><input type="text" name="newCourseName[]" class="form-control" id="addNewCourse01" placeholder="Course Name"> </td>
+                                <td><select multiple class="form-control" id="addCat" name="newCourseCategories[]">
+                            <?php
+                                foreach ($available_categories as $a_category) 
+                                    echo "<option value=".$a_category[0].">".$a_category[1]."</option>";
+                            ?>
+                                    </select></td>
+                            </tr>
+                            <tr class="newCourse02 courseBox">
+                                <td><input type="text" name="newCourseCode[]" class="form-control" id="addNewCourse02" placeholder="Course Code"> </td>
+                                <td><input type="text" name="newCourseName[]" class="form-control" id="addNewCourse02" placeholder="Course Name"> </td>
+                                <td><select multiple class="form-control" id="addCat" name="newCourseCategories[]">
+                            <?php
+                                foreach ($available_categories as $a_category) 
+                                    echo "<option value=".$a_category[0].">".$a_category[1]."</option>";
+                            ?>
+                                    </select></td>
+                            </tr>
+                            <tr class="newCourse03 courseBox">
+                                <td><input type="text" name="newCourseCode[]" class="form-control" id="addNewCourse03" placeholder="Course Code"> </td>
+                                <td><input type="text" name="newCourseName[]" class="form-control" id="addNewCourse03" placeholder="Course Name"> </td>
+                                <td><select multiple class="form-control" id="addCat" name="newCourseCategories[]">
+                            <?php
+                                foreach ($available_categories as $a_category) 
+                                    echo "<option value=".$a_category[0].">".$a_category[1]."</option>";
+                            ?>
+                                    </select></td>
+                            </tr>
+                            <tr class="newCourse04 courseBox">
+                                <td><input type="text" name="newCourseCode[]" class="form-control" id="addNewCourse04" placeholder="Course Code"> </td>
+                                <td><input type="text" name="newCourseName[]" class="form-control" id="addNewCourse04" placeholder="Course Name"> </td>
+                                <td><select multiple class="form-control" id="addCat" name="newCourseCategories[]">
+                            <?php
+                                foreach ($available_categories as $a_category) 
+                                    echo "<option value=".$a_category[0].">".$a_category[1]."</option>";
+                            ?>
+                                    </select></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,6 +153,7 @@
                     <div class="form-group">
                         <label for="addNewCategory">Add new categories?</label>
                         <div class="form-group">
+                            <label class="radio-inline"><input type="radio" name="newCategories" id="categoryRadio000" value="0" checked> 0</label>
                             <label class="radio-inline"><input type="radio" name="newCategories" id="categoryRadio00" value="1"> 1</label>
                             <label class="radio-inline"><input type="radio" name="newCategories" id="categoryRadio01" value="2"> 2</label>
                             <label class="radio-inline"><input type="radio" name="newCategories" id="categoryRadio02" value="3"> 3</label>
@@ -116,6 +182,7 @@
                     <div class="form-group">
                         <label for="addNewTag">Add new tags?</label>
                         <div class="form-group">
+                            <label class="radio-inline"><input type="radio" name="newTags" id="tagRadio000" value="0" checked> 0</label>
                             <label class="radio-inline"><input type="radio" name="newTags" id="tagRadio00" value="1"> 1</label>
                             <label class="radio-inline"><input type="radio" name="newTags" id="tagRadio01" value="2"> 2</label>
                             <label class="radio-inline"><input type="radio" name="newTags" id="tagRadio02" value="3"> 3</label>
