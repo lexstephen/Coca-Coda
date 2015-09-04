@@ -1,7 +1,10 @@
-<div class="cols-sm-12 col-md-2">
+<?php 
+    $loggedIn = (isset($_SESSION['username']))?true:false;
+    if($loggedIn) $username = $_SESSION['username'];
+ ?>
+<div class="col-sm-12 col-md-2">
     <h1 class="text-center"><a href="index.php">Coda Cola</a></h1>
     
-
     <div class="panel-group" id="accordion">  
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -54,6 +57,7 @@
             </div>
         </div>
         
+        <?php if(isset($_SESSION['username'])) { ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                  <h4 class="panel-title">
@@ -74,6 +78,7 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
         
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -165,5 +170,26 @@
 </div>
 
 <div class="col-sm-12 col-md-9">
-    <br>
+    <div class="row"><br>
+        <?php if (!$loggedIn) { ?>
+    <div class="col-sm-12">
+        <form class="form-inline pull-right" action="index.php?controller=profile&action=login" method="post">        
+            <input type="hidden" name="referrer" value="<?php echo $_SERVER['HTTP_REFERER']; ?>">
+            <div class="form-group">
+                <label for="addUsername">Username</label>
+                <input type="text" name="username" class="form-control" id="addUsername">
+            </div>
+            <div class="form-group">
+                <label for="addPassword1">Password</label>
+                <input type="password" name="password1" class="form-control" id="addPassword1">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+        <?php } else { ?>
+    <div class="col-sm-12 text-right">
+        Logged in as <?php echo $username; ?>.  <a href="index.php?controller=profile&action=logout">Log out</a>?
+    </div>
+        <?php } ?>
+    </div>
     <div class="row">

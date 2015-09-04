@@ -1,4 +1,5 @@
 <?php require_once 'header.php';
+if ($loggedIn) {
   if (isset($_POST['author']))
   {
       Add::addCode();
@@ -342,4 +343,11 @@
             </div>
         </form>
 </div>
-<?php require_once 'footer.php'; ?>
+<?php } else { ?>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Sorry, you must be logged in to add a code.</p>
+                </div>
+            </div>
+<?php } require_once 'footer.php'; ?>

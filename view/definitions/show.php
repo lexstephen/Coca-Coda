@@ -44,8 +44,8 @@
                 <?php $users = $definition->displayUser($definition->id);
                 $userList = '';
                 foreach ($users as $user) {
-                    $userList .= '<a href="?controller=users&action=show&user=' . $user .'">'
-                            . $user 
+                    $userList .= '<a href="?controller=profile&action=show&user=' . $user['id'] .'">'
+                            . $user['username'] 
                             . '</a> ';
                 }
                 echo $userList; ?>

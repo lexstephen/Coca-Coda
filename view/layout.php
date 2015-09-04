@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +9,11 @@
     <meta name="description" content="<?php echo $metaTitle; ?>">
     <meta name="keywords" content="<?php echo $metaKeywords; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php 
+    if ((isset($_GET['action'])) && ($_GET['action'] == 'login') && (isset($_SESSION['username']))) {
+        $redirect = $_SERVER['HTTP_REFERER'];
+        echo '<meta http-equiv="refresh" content="0;URL='.$redirect.'">';
+    } ?>
     <title><?php echo $siteTitle; ?> | <?php echo $metaTitle; ?></title>
     <link rel="stylesheet" href="bower_components/custom_bootstrap/style.css">
     <style type="text/css">

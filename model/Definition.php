@@ -63,9 +63,10 @@ class Definition {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT DISTINCT username FROM users 
+        $req = $db->prepare('SELECT * FROM users 
                     INNER JOIN usermap
                     ON usermap.definition_id = :id
+                    AND usermap.user_id = users.id
                     ORDER BY username ASC');
         // the query was prepared, now we replace :id with our actual $id value
         $req->execute(array('id' => $id));
@@ -73,8 +74,8 @@ class Definition {
 
         $statement = [];
         foreach ($rows as $row) {
-            array_push($statement, $row['username']);
-//            var_dump($row);
+            $statement[] = ['id' => $row['user_id'], 'username' => $row['username'], 'first_name' => $row['first_name']];
+            
         }
         return $statement;
     }

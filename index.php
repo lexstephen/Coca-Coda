@@ -1,4 +1,8 @@
 <?php 
+    session_start();
+    
+    
+    
     require_once('connection.php');
 
     $siteTitle = "Code Cuts";
@@ -20,3 +24,5 @@
         require_once('view/layout.php');
     else
         require_once('routes.php');
+    
+    
