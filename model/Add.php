@@ -14,7 +14,7 @@ class Add {
         //
         //
         $codeTitle = isset($_POST['title'])?$_POST['title']:null;
-        $codeDescription = isset($_POST['description'])?$_POST['title']:null;
+        $codeDescription = isset($_POST['description'])?$_POST['description']:null;
         $codeAuthor = isset($_POST['author'])?$_POST['author']:null;
         $codeImage = isset($_POST['image'])?$_POST['image']:null;
         $codeFiles = isset($_POST['files'])?$_POST['files']:null;
@@ -81,7 +81,7 @@ class Add {
                     (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         );
         $req->execute(array($codeTitle, $codeDescription, $codeAuthor, $codeFiles, $codeImage, 
-            $codeSourceCode00Title, $codeSourceCode00, $codeSourceCode00Title, $codeSourceCode01, 
+            $codeSourceCode00Title, $codeSourceCode00, $codeSourceCode01Title, $codeSourceCode01, 
             $codeSourceCode02Title, $codeSourceCode02, $codeSourceCode03Title, $codeSourceCode03, 
             $codeSourceCode04Title, $codeSourceCode04, $codeSourceCode05Title, $codeSourceCode05, 
             $codeSourceCode06Title, $codeSourceCode06, $codeSourceCode07Title, $codeSourceCode07, 

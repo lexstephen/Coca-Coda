@@ -166,3 +166,6 @@ INSERT INTO `cc_test`.`category` (`id`, `name`, `showPreview`, `showCode`) VALUE
 INSERT INTO `tagmap`(`id`, `tag_id`, `code_id`) VALUES (null,378,4);
 
 INSERT INTO `cc_test`.`coursemap` (`id`, `course_id`, `cat_id`) VALUES (NULL, '0', '3097');
+
+UPDATE `cc_test`.`code` SET `description` = 'Joins, Triggers and Procedures' WHERE `code`.`id` = 42;
+UPDATE `cc_test`.`code` SET `description` = 'Joins, Triggers and Procedures', `author` = 'Alexis Dicks-Stephen 2' WHERE `code`.`id` = 42;

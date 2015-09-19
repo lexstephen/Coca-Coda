@@ -101,6 +101,23 @@
                 return call('codes', 'error');
             }
         }
+    public function edit() {
+        // build sidebar, available tags, list of all add
+        // display index
+        $available_courses = Application::displayAllCourses();
+            $available_codes = Application::displayAllCodes();
+        $available_categories = Application::displayAllCats();
+        $available_tags = Application::displayAllTags();
+        $sidebar = Application::sidebar();
+        $used_tags = Application::displayUsedTags();
+        $codes = Code::all();
+        if((isset($_GET['id'])) && in_array($_GET['id'], $available_codes)) {
+            // use the given id to get the right code
+            $code = Code::find($_GET['id']);
+            require_once('view/codes/edit.php');
+        } else
+            return call('codes', 'error');
+    }
     }
 ?>
 
