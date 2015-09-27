@@ -13,6 +13,7 @@ function call($controller, $action) {
         require_once('model/Add.php');
         $controller = new AddController();
       break;
+      case 'codes':
         require_once('model/Code.php');
         $controller = new CodesController();
       break;

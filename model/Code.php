@@ -14,7 +14,7 @@ class Code {
     public $sourcecode08, $sourcecode08title;
     public $sourcecode09, $sourcecode09title;
     public $sourcecodes;
-    
+
     public function __construct($id, $title, $description, $author, $files, $sourcecode00, $sourcecode00title, $sourcecode01, $sourcecode01title, $sourcecode02, $sourcecode02title, $sourcecode03, $sourcecode03title, $sourcecode04, $sourcecode04title, $sourcecode05, $sourcecode05title, $sourcecode06, $sourcecode06title, $sourcecode07, $sourcecode07title, $sourcecode08, $sourcecode08title, $sourcecode09, $sourcecode09title) {
         $this->id = $id;
         $this->title = $title;
@@ -41,11 +41,11 @@ class Code {
         $req = $db->query('SELECT * FROM code ORDER BY id DESC');
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $code) {
-            $list[] = ['theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], 
-                    $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
-                    $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
-                    $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                    $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
+            $list[] = ['theCode' => new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'],
+                    $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'],
+                    $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'],
+                    $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'],
+                    $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'],
                     $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title'])];
         }
         return $list;
@@ -60,15 +60,20 @@ class Code {
         $req->execute(array('id' => $id));
         $code = $req->fetch();
 
-        return new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'], $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title']);
+        return new Code($code['id'], $code['title'], $code['description'], $code['author'], $code['files'],
+        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'],
+        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'],
+        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'],
+        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'],
+        $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title']);
     }
-    
+
 
     public static function displayUser($id) {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT * FROM users 
+        $req = $db->prepare('SELECT * FROM users
                     INNER JOIN usermap
                     ON usermap.code_id = :id
                     AND usermap.user_id = users.id
@@ -80,7 +85,7 @@ class Code {
         $statement = [];
         foreach ($rows as $row) {
             $statement[] = ['id' => $row['user_id'], 'username' => $row['username'], 'first_name' => $row['first_name']];
-            
+
         }
         return $statement;
     }
@@ -89,7 +94,7 @@ class Code {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT name FROM tag 
+        $req = $db->prepare('SELECT name FROM tag
                     INNER JOIN tagmap
                     ON tagmap.code_id = :id
                     AND tag.id = tagmap.tag_id
@@ -105,13 +110,13 @@ class Code {
         }
         return $statement;
     }
-    
+
     public static function displayCourses($id) {
         $list = [];
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT courses.name FROM courses 
+        $req = $db->prepare('SELECT courses.name FROM courses
                     INNER JOIN course_code_definition
                     ON course_code_definition.code_id = :id
                     AND course_code_definition.course_id = courses.code
@@ -128,7 +133,7 @@ class Code {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT name FROM category 
+        $req = $db->prepare('SELECT name FROM category
                     INNER JOIN catmap
                     ON catmap.code_id = :id
                     AND category.id = catmap.cat_id
@@ -140,7 +145,7 @@ class Code {
         }
         return $list;
     }
-     
+
     public static function categories($category) {
         $list = [];
         $db = Db::getInstance();
@@ -165,12 +170,12 @@ class Code {
             foreach ($req->fetchAll() as $code) {
                 $list[] = [
                         'category' => $cat['name'],
-                    'theCode' => new Code($code['code_id'], $code['title'], 
-                        $code['description'], $code['author'], $code['files'], 
-                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
-                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
-                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
+                    'theCode' => new Code($code['code_id'], $code['title'],
+                        $code['description'], $code['author'], $code['files'],
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'],
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'],
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'],
+                        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'],
                         $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title'])
                 ];
             }
@@ -187,7 +192,7 @@ class Code {
 //        echo $chk['name'];
 //        }
         if ($tag == "all") {
-            
+
             // the query was prepared, now we replace :id with our actual $id value
                 $getCodesQry = 'SELECT DISTINCT code.id, code.title,'
                         . 'code.description, code.author, code.files,'
@@ -198,6 +203,9 @@ class Code {
                         . 'code.sourcecode04, code.sourcecode04title,'
                         . 'code.sourcecode05, code.sourcecode05title,'
                         . 'code.sourcecode06, code.sourcecode06title'
+                        . 'code.sourcecode07, code.sourcecode07title'
+                        . 'code.sourcecode08, code.sourcecode08title'
+                        . 'code.sourcecode09, code.sourcecode09title'
                         . ' FROM code INNER JOIN tagmap';
                 $req = $db->query($getCodesQry);
                 //echo '<br>'.$getCodesQry;
@@ -206,15 +214,18 @@ class Code {
             // we create a list of Code objects from the database results
             foreach ($req->fetchAll() as $code) {
                 $list[] = [
-                    'theCode' => new Code($code[$whichKind], $code['title'], 
-                        $code['description'], $code['author'], $code['files'], 
-                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
-                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
-                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                        $code['sourcecode06'], $code['sourcecode06title'])
+                    'theCode' => new Code($code[$whichKind], $code['title'],
+                        $code['description'], $code['author'], $code['files'],
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'],
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'],
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'],
+                        $code['sourcecode06'], $code['sourcecode06title'],
+                        $code['sourcecode07'], $code['sourcecode07title'],
+                        $code['sourcecode08'], $code['sourcecode08title'],
+                        $code['sourcecode09'], $code['sourcecode09title'])
                 ];
             }
-        
+
         return $list;
         } else {
             $getTagsQry = 'SELECT * FROM tag WHERE name = \'' . $tag . '\' ORDER BY id';
@@ -234,25 +245,25 @@ class Code {
             foreach ($req->fetchAll() as $code) {
                 $list[] = [
                     'tag' => $tg['name'],
-                    'theCode' => new Code($code[$whichKind], $code['title'], 
-                        $code['description'], $code['author'], $code['files'], 
-                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'], 
-                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'], 
-                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'], 
-                        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'], 
-                        $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode07title'])
+                    'theCode' => new Code($code[$whichKind], $code['title'],
+                        $code['description'], $code['author'], $code['files'],
+                        $code['sourcecode00'], $code['sourcecode00title'], $code['sourcecode01'], $code['sourcecode01title'],
+                        $code['sourcecode02'], $code['sourcecode02title'], $code['sourcecode03'], $code['sourcecode03title'],
+                        $code['sourcecode04'], $code['sourcecode04title'], $code['sourcecode05'], $code['sourcecode05title'],
+                        $code['sourcecode06'], $code['sourcecode06title'], $code['sourcecode07'], $code['sourcecode07title'],
+                        $code['sourcecode08'], $code['sourcecode08title'], $code['sourcecode09'], $code['sourcecode09title'])
                 ];
             }
         }
         return $list;
-            
+
         }
 
     public static function showPreview($id) {
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare('SELECT showPreview FROM category 
+        $req = $db->prepare('SELECT showPreview FROM category
                     INNER JOIN catmap
                     ON catmap.code_id = :id
                     AND category.id = catmap.cat_id
@@ -268,16 +279,16 @@ class Code {
         }
         return $statement;
     }
-    
+
     public static function editCode($id) {
         $id = intval($id);
         // for debugging
         // print_r($_POST);
-        
+
         // grab the components for the new Code being added
         // set them to null if they didn't submit a value
         //
-        // 
+        //
         // TO DO: set required fields and strip the nulling of them
         //
         //
@@ -306,7 +317,7 @@ class Code {
         $codeSourceCode08 = isset($_POST['sourcecode08'])?$_POST['sourcecode08']:null;
         $codeSourceCode09Title = isset($_POST['sourcecode09title'])?$_POST['sourcecode09title']:null;
         $codeSourceCode09 = isset($_POST['sourcecode09'])?$_POST['sourcecode09']:null;
-        
+
         // $codeCourses holds an array of any preexisting courses that were selected
         $codeCourses = isset($_POST['courses'])?$_POST['courses']:null;
         // $codeNewCourses holds the # of new courses they added
@@ -315,26 +326,26 @@ class Code {
         $codeNewCourseCode = isset($_POST['newCourseCode'])?$_POST['newCourseCode']:null;
         $codeNewCourseName = isset($_POST['newCourseName'])?$_POST['newCourseName']:null;
         $codeNewCourseCategories = isset($_POST['newCourseCategories'])?$_POST['newCourseCategories']:null;
-        
+
         // $codeCategories holds an array of any preexisting categories that were selected
         $codeCategories = isset($_POST['categories'])?$_POST['categories']:null;
         // $codeNewCategories holds the # of new categories they added
         $codeNewCategories = isset($_POST['newCategories'])?$_POST['newCategories']:null;
         // $codeNewCategory holds an array of the new categories they added
         $codeNewCategory = isset($_POST['newCategory'])?$_POST['newCategory']:null;
-        
+
         // $codeTags holds an array of any preexisting tags that were selected
         $codeTags = isset($_POST['tags'])?$_POST['tags']:null;
         // $codeNewTags holds the # of new tags they added
         $codeNewTags = isset($_POST['newTags'])?$_POST['newTags']:null;
         // $codeNewTag holds an array of the new tags they added
         $codeNewTag = isset($_POST['newTag'])?$_POST['newTag']:null;
-        
-        
-        
+
+
+
         // fire up the database connection
         $db = Db::getInstance();
-        
+
         $qry = "";
         if($codeTitle) { $qry .= "`title` = '" . $codeTitle."', ";}
         if($codeDescription) { $qry .= "`description` = '" . $codeDescription."', ";}
@@ -361,7 +372,7 @@ class Code {
         if($codeSourceCode08) { $qry .= "`sourcecode08` = '" . $codeSourceCode08."', ";}
         if($codeSourceCode09Title) { $qry .= "`sourcecode09title` = '" . $codeSourceCode09Title."', ";}
         if($codeSourceCode09) { $qry .= "`sourcecode09` = '" . $codeSourceCode09."', ";}
-        
+
         $qry = rtrim($qry, ', ');
         // use prepare/execute instead of query so that harmful code is not directly injected
         // insert a new Code into the code table
@@ -375,7 +386,7 @@ print_r($qry);
         if ($codeCourses) {
             foreach($codeCourses as $codeCourse) {
                 $catReq = $db->query(
-                    "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`) 
+                    "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`)
                     VALUES (NULL, '$codeCourse', '$codeID', NULL)"
                 );
             }
@@ -384,7 +395,7 @@ print_r($qry);
         if ($codeCategories) {
             foreach($codeCategories as $codeCategory) {
                 $catReq = $db->query(
-                    "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`) 
+                    "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`)
                     VALUES (NULL, '$codeID', '$codeCategory')"
                 );
             }
@@ -393,7 +404,7 @@ print_r($qry);
         if ($codeTags) {
             foreach($codeTags as $codeTag) {
                 $tagReq = $db->query(
-                    "INSERT INTO `cc_test`.`tagmap` (`id`, `tag_id`, `code_id`) 
+                    "INSERT INTO `cc_test`.`tagmap` (`id`, `tag_id`, `code_id`)
                     VALUES (NULL, '$codeTag', '$codeID')"
                 );
             }
@@ -404,44 +415,44 @@ print_r($qry);
             for ($x = 0; $x < $codeNewCourses; $x++) {
                 // add the new course code
                     $addThatCourse = $db->query(
-                        "INSERT INTO `cc_test`.`courses` 
-                        (`code`, `name`) 
+                        "INSERT INTO `cc_test`.`courses`
+                        (`code`, `name`)
                         VALUES ('$codeNewCourseCode[$x]', '$codeNewCourseName[$x]')"
                     );
-                    // get the ID of the course inserted 
+                    // get the ID of the course inserted
                     // then link each course code to the code's id
                     $linkThatCourse = $db->query(
-                        "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`) 
+                        "INSERT INTO `cc_test`.`course_code_definition` (`id`, `course_id`, `code_id`, `definition_id`)
                         VALUES (NULL, '$codeNewCourseCode[$x]', '$codeID', NULL)"
                     );
                     print_r($codeNewCategories[$x]);
                     $linkThatCourseToACategory = $db->query(
-                        "INSERT INTO `cc_test`.`coursemap` (`id`, `course_id`, `cat_id`) 
+                        "INSERT INTO `cc_test`.`coursemap` (`id`, `course_id`, `cat_id`)
                         VALUES (NULL, '$codeNewCourseCode[$x]', '$codeNewCourseCategories[$x]')"
                     );
                     // get the ID of the category inserted to use in building category and code associations
                     $catID = $db->lastInsertId();
                     $linkThatCategoryToTheCode = $db->query(
-                        "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`) 
+                        "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`)
                         VALUES (NULL, '$codeID', '$catID')"
                     );
             }
         }
-        
+
         // check if new categories were added and add them to the database
         // then link each id to the code's id
         if ($codeNewCategory) {
             for ($x = 0; $x < $codeNewCategories; $x++) {
                     $addThatCat = $db->query(
-                        "INSERT INTO `cc_test`.`category` 
-                        (`id`, `name`, `showPreview`, `showCode`) 
+                        "INSERT INTO `cc_test`.`category`
+                        (`id`, `name`, `showPreview`, `showCode`)
                         VALUES (NULL, '$codeNewCategory[$x]', '1','1')"
                     );
-                    // get the ID of the category inserted 
+                    // get the ID of the category inserted
                     // then link each id to the code's id
                     $catID = $db->lastInsertId();
                     $linkThatCat = $db->query(
-                        "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`) 
+                        "INSERT INTO `cc_test`.`catmap` (`id`, `code_id`, `cat_id`)
                         VALUES (NULL, '$codeID', '$catID')"
                     );
             }
@@ -451,14 +462,14 @@ print_r($qry);
         if ($codeNewTag) {
             for ($x = 0; $x < $codeNewTags; $x++) {
                     $addThatTag = $db->query(
-                        "INSERT INTO `cc_test`.`tag` (`id`, `name`) 
+                        "INSERT INTO `cc_test`.`tag` (`id`, `name`)
                         VALUES (NULL, '$codeNewTag[$x]')"
                     );
-                    // get the ID of the tag inserted 
+                    // get the ID of the tag inserted
                     // then link each id to the code's id
                     $tagID = $db->lastInsertId();
                     $linkThatTag = $db->query(
-                        "INSERT INTO `cc_test`.`tagmap` (`id`, `tag_id`, `code_id`) 
+                        "INSERT INTO `cc_test`.`tagmap` (`id`, `tag_id`, `code_id`)
                         VALUES (NULL, '$tagID', '$codeID')"
                     );
             }

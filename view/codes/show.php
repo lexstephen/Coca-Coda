@@ -1,50 +1,50 @@
 <?php require_once 'header.php'; ?>
 
         <div class="page-header">
-            <h3><?php 
+            <h3><?php
                 $courses = $code->displayCourses($code->id);
                 $courseList = '';
                 foreach ($courses as $course) {
                     $courseList .= '<a class="btn btn-info course" href="?controller=codes&action=course&course=' . $course .'">'
-                            . $course 
+                            . $course
                             . '</a> ';
                 }
                 echo $courseList;
-                
-                
+
+
                 $cats = $code->displayCats($code->id);
                 $catList = '';
                 foreach ($cats as $cat) {
                     $catList .= '<a class="btn btn-info" href="?controller=codes&action=categories&category=' . $cat .'">'
-                            . $cat 
+                            . $cat
                             . '</a> ';
                 }
                 echo $catList;
-                
+
                 echo $code->title; ?></h3>
             <p><?php echo $code->description; ?>
             <small>
                 <?php
-                
-                
+
+
                 $tags = $code->displayTags($code->id);
                 $tagList = '';
                 foreach ($tags as $tag) {
                     $tagList .= '<a href="?controller=codes&action=tags&tag=' . $tag .'">'
-                            . $tag 
+                            . $tag
                             . '</a>, ';
                 }
                 $tagList = rtrim($tagList, ', ');
                 echo '<br>tagged under: ' . $tagList;
-                
+
                 ?></p>
             <p>
-                added by 
+                added by
                 <?php $users = $code->displayUser($code->id);
                 $userList = '';
                 foreach ($users as $user) {
                     $userList .= '<a href="?controller=profile&action=show&user=' . $user['id'] .'">'
-                            . $user['username'] 
+                            . $user['username']
                             . '</a> ';
                 }
                 echo $userList; ?>
@@ -66,12 +66,12 @@
                 </div>
             </div>
         </div>
-<?php 
+<?php
     } else {
         // change the size of the code areas if there are fewer files displayed
         if ($code->files > 1)
             $colSize = 6;
-        else 
+        else
             $colSize = 12;
     }
     }
@@ -87,5 +87,5 @@
         </div>
 <?php
     }
-?> 
+?>
 <?php require_once 'footer.php'; ?>
